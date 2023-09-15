@@ -26,7 +26,7 @@ function Home() {
         Logout <LogoutIcon />
       </Button>
       <Grid style={{ textAlign: 'center', margin: '60px 0px' }}>
-        <h3>Welcome {userData?.name}</h3>
+        <h3>Welcome {userData?.name} </h3>
       </Grid>
     </HOC>
   );

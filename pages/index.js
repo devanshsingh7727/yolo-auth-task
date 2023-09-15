@@ -1,61 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import HOC from '../components/HOC';
-import PhoneNumber from '../components/PhoneNumber';
-import Otp from '../components/Otp';
-import axios from 'axios';
-import { Button } from '@mui/material';
-import Router from 'next/router';
-function index() {
-  const [Win, setWin] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [otp, setOtp] = useState('');
-  const [SelectedPage, setSelectedPage] = useState(0);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setWin(true);
-    }
-  }, []);
-  const RegisterUser = async () => {
-    const { data } = await axios.post('/api/user', { phoneNumber });
-    return data.insertedId;
-  };
-  const loginUser = async () => {
-    const data = await axios.get(`/api/user?phoneNumber=${phoneNumber}`);
-    return data;
-  };
-  const ExistingUser = async () => {
-    const loginInfo = await loginUser();
-    if (loginInfo.status === 200) {
-      localStorage.setItem('user', JSON.stringify(loginInfo.data.user));
-      Router.push('/Home');
-    } else {
-      const RegisterInfo = await RegisterUser();
-      Router.push(`/UserInfo?id=${RegisterInfo}`);
-    }
-  };
+import Head from 'next/head';
+
+import Main from '../components/Main';
+
+export default function Home() {
   return (
-    Win && (
-      <HOC>
-        {SelectedPage === 0 ? (
-          <PhoneNumber
-            phoneNumber={phoneNumber}
-            setPhoneNumber={setPhoneNumber}
-            setSelectedPage={setSelectedPage}
-          />
-        ) : (
-          SelectedPage === 1 && (
-            <Otp
-              phoneNumber={phoneNumber}
-              otp={otp}
-              setOtp={setOtp}
-              setSelectedPage={setSelectedPage}
-              ExistingUser={ExistingUser}
-            />
-          )
-        )}
-      </HOC>
-    )
+    <>
+      <Head>
+        <title>Yolo Task</title>
+        <meta name='description' content=' ask' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' href='/icon-256x256.png' />
+      </Head>
+
+      <Main />
+    </>
   );
 }
-
-export default index;

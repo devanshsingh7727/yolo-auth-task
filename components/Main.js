@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import HOC from './HOC';
 import Otp from './Otp';
 import PhoneNumber from './PhoneNumber';
-function index() {
+function Main() {
   const [Win, setWin] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
@@ -57,4 +57,4 @@ function index() {
   );
 }
 
-export default index;
+export default Main;

@@ -26,7 +26,7 @@ function Name({ setActiveSteps, userData, onChangeHandler, UpdateUserInfo }) {
           variant='contained'
           disabled={!userData?.refer}
           sx={{ marginTop: '40px', backgroundColor: 'black' }}
-          onClick={userData?.refer && UpdateUserInfo}
+          onClick={() => userData?.refer && UpdateUserInfo()}
         >
           Submit
         </Button>

@@ -54,23 +54,28 @@ handler.patch(async (req, res) => {
   const { _id, userData } = req.body;
   const client = await clientPromise;
   const db = client.db('test');
-  console.log(req.body);
   try {
     const updatedData = await db.collection('users').updateOne(
-      { _id: ObjectId(_id) },
+      { phoneNumber: _id },
 
       {
         $set: { ...userData },
       }
     );
-
-    res.status(200).json({
-      updatedData,
-      message: 'user Updated successfully',
-    });
+    if (updatedData.matchedCount === 0 && updatedData.upsertedCount === 0) {
+      // Handle the case where no document was matched or upserted.
+      res.status(404).json({
+        message: 'No user found or created',
+      });
+    } else {
+      res.status(200).json({
+        updatedData,
+        message: 'User updated successfully',
+      });
+    }
   } catch (err) {
     res.status(500).json({
-      Found: false,
+      err,
       message: 'user not Updated',
     });
   }

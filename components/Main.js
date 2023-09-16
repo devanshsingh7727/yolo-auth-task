@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Router from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import HOC from './HOC';
 import Otp from './Otp';
 import PhoneNumber from './PhoneNumber';
@@ -29,7 +29,7 @@ function Main() {
       Router.push('/Home');
     } else {
       const RegisterInfo = await RegisterUser();
-      Router.push(`/UserInfo?id=${RegisterInfo}`);
+      Router.push(`/UserInfo?id=${phoneNumber}`);
     }
   };
   return (

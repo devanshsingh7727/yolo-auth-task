@@ -29,7 +29,7 @@ function PhoneNumber({ setSelectedPage, phoneNumber, setPhoneNumber }) {
       );
     }
   }
-
+  console.log('test');
   function onSignup() {
     setLoading(true);
     onCaptchVerify();
